@@ -1,4 +1,5 @@
-import conf from "../conf/conf";
+/* eslint-disable no-useless-catch */
+import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService {
@@ -13,8 +14,6 @@ export class AuthService {
      }
 
      async createAccount({email, password, name}){
-
-        // eslint-disable-next-line no-useless-catch
         try {
            const userAccount =   await this.account.create(ID.unique(), email, password, name);
 
@@ -31,7 +30,6 @@ export class AuthService {
      }
 
      async login({email, password}){
-        // eslint-disable-next-line no-useless-catch
         try {
             return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
@@ -41,7 +39,7 @@ export class AuthService {
 
      async getCurrentUser(){
         try {
-            await this.account.get();
+           return await this.account.get();
             
         } catch (error) {
             console.log("Appwrite service :: getCurrentUser :: error : ", error);
@@ -55,7 +53,7 @@ export class AuthService {
             await this.account.deleteSessions();
             
         } catch (error) {
-            console.log("Appwrite service :: lougou :: error : ", error);
+            console.log("Appwrite service :: lougout :: error : ", error);
         }
      }
 
